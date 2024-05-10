@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="register.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="userInfo">
+                <h2>Welcome</h2>
+                <h3>Name:
+                    <script>
+                        document.write(localStorage.getItem("name"))
+                    </script>
+                </h3>
+
+                <h3>Email:
+                    <script>
+                        document.write(localStorage.getItem("email"))
+                    </script>
+                </h3>
+                <button type="button" onclick="signOut()" class="btn btn-primary" id="signOut-btn">signOut</button>
+                <button type="button" onclick="showLocalStorage()" class="btn btn-primary" id="showLocalStorage">Show
+                    LocalStorage data</button>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        function signOut() {
+            localStorage.removeItem("name");
+            localStorage.removeItem("email");
+            $.ajax({
+                type: "POST",                // HTTP method (POST)
+                url: "localStorage.html", // URL to the HTML file you want to fetch
+                dataType: "html",            // Expected data type of the response (HTML)
+                success: function(response) {
+        // Function to execute when the request is successful
+                    window.location.href = "register.html";
+                    console.log("HTML file loaded successfully:", response);
+        // Here you can do something with the response, like inserting it into the DOM
+        // For example, if you have a <div id="content"> element, you could do:
+        // $("#content").html(response);
+    },
+                error: function(xhr, status, error) {
+        // Function to execute when an error occurs
+        console.error("Error loading HTML file:", error);
+    }
+});
+            window.location.href = "register.html";
+        }
+        function showLocalStorage() {
+            window.location.href = "localStorage.html";
+        }
+    </script>
+</body>
+
+</html>
