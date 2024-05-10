@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="register.css">
+    <title>Local Storage</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="userInfo">
+                <h2>Welcome</h2>
+                <ul id="userList"></ul>
+                <!-- <button type="button" onclick="signOut()" class="btn btn-primary" id="signOut-btn">signOut</button> -->
+            </div>
+        </div>
+
+    </div>
+    <script>
+        function displayUsers() {
+            var users = JSON.parse(localStorage.getItem("users")) || [];
+            var userList = document.getElementById("userList");
+            userList.innerHTML = '';
+            users.forEach(function (user) {
+                var li = document.createElement('li');
+                li.textContent = 'Name: ' + user.name + ', Email: ' + user.email;
+                userList.appendChild(li);
+            });
+        }
+
+        function signOut() {
+            localStorage.removeItem("users");
+            window.location.href = "register.html";
+        }
+        window.onload = displayUsers;
+    </script>
+</body>
+
+</html>
